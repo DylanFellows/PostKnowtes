@@ -1,0 +1,81 @@
+.allKnowteDiv {
+    background-color: rgba(255, 255, 255, 0.911);
+    width: 65%;
+    margin-left: 17%;
+    margin-top: 1%;
+    border-radius: 25px;
+}
+
+.singleKnowteDiv {
+    background-color: #333;
+    width: 70%;
+    margin-left: 15%;
+    vertical-align: middle;
+    border-radius: 6px 12px 18px 24px;
+}
+.singleKnowte {
+    padding-top: 5%;
+}
+
+.knowteBody {
+    text-align: left;
+    color: white;
+    font-family: verdana, arial, 'Times New Roman', Times, serif;
+    font-size: .9em;
+}
+
+.title {
+    font-size: 1.1em;
+    text-align: left;
+    margin-top: 20px;
+    color: rgb(0, 153, 255);
+}
+
+.subject {
+    color: rgb(75, 255, 4);
+    margin-top: -20px;
+    margin-left: 1%;
+}
+
+.username {
+    margin-top: 15px;
+    color: white;
+    font-size: .8em;
+    margin-left: 1%;
+}
+
+.smallFont {
+    font-style: italic;
+    font-size: .75em;
+    margin-top: -17px;
+    margin-left: 8px;
+    color: yellow;
+}
+
+.seeMore {
+    text-align: right;
+    margin-right: 1%;
+}
+
+.knowteHeaderDiv {
+    margin-top: -20px;
+    text-align: left;
+}
+
+.titleDiv {
+    margin-top: -20px;
+    margin-left: 8px;
+
+}
+
+.bodyDiv {
+    margin-top: -20px;
+    margin-left: 8px;
+}
+
+.detailDiv {
+    margin-top: -20px;
+    text-align: left;
+}
+
+
