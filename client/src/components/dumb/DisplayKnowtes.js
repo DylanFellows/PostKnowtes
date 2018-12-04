@@ -71,7 +71,6 @@ export default class DisplayKnowtes extends Component {
     }
 
     editKnowte = (evt) => {
-        alert(evt.target.id);
         axios.put(`http://localhost:3001/api/editKnowte/${evt.target.id}/${this.state.title}/${this.state.subject}/${this.state.body}`)
             .then((result) => {
                 this.setState({ knowteEdited: result.data.success });
@@ -126,8 +125,9 @@ export default class DisplayKnowtes extends Component {
         });
         console.log(this.state.knowtes)
     }
-
+    
     render() {
+        this.gatherKnowtes();
         return (
             <div className="singleKnowteDiv">
                 {this.state.knowtes.map((knowte, index) =>

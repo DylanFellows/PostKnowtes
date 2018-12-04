@@ -61,7 +61,7 @@ export default class CreateKnowte extends Component {
                     subject: '',
                     body: '',
                     knowtes: []
-                }) 
+                });
             });
         }).catch((error) => {
             console.log(error);

@@ -57,11 +57,7 @@ export default class SeeMore extends Component {
     }
 
     submitEdit = (evt) => {
-        alert(evt.target.id);
-        alert(this.state.body);
-
-        axios.put(`http://localhost:3001/api/editComment/${evt.target.id}/${this.state.body}`).then((response) => {
-            alert(response);    
+        axios.put(`http://localhost:3001/api/editComment/${evt.target.id}/${this.state.body}`).then((response) => {    
             if(response){
                 console.log('Update Successful!');
                 this.cancelEdit();

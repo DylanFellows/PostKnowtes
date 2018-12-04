@@ -22,21 +22,18 @@ export default class App extends Component {
     this.setState({
       isLoggedIn: params
     })
-    //alert('Logged in state from nav.js in app.js' + this.state.isLoggedIn);
   }
 
   getIdState = (params) => {
     this.setState({
       id: params
     })
-    alert('State of id in app.js from nav.js' + this.state.id);
   }
 
   getCurrentUserState = (params) => {
     this.setState({
       currentUser: params
     })
-    //alert('Current user state from nav.js in app' + this.state.currentUser);
   }
 
   render() {
