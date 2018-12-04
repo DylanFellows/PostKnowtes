@@ -10,10 +10,19 @@ export default class Home extends Component {
 
     state = {
         knowtes: [],
-        isLoggedIn: false
+        isLoggedIn: false,
+        currentUser: '',
+        id: '',
+        knowteId: ''    
     }
 
     gatherNewKnowtes = (params) => {
+        this.setState({
+            knowtes: params
+        });
+        this.setState({
+            knowtes: ''
+        });
         this.setState({
             knowtes: params
         })
@@ -22,7 +31,9 @@ export default class Home extends Component {
     gatherKnowtes = () => {
         axios.get(`${PORT}/api/knowtes`).then((response) => {
             console.log(response.data);
-            this.setState({ knowtes: response.data });
+            this.setState({
+                knowtes: response.data,
+            }); 
         })
     }
 
@@ -30,26 +41,23 @@ export default class Home extends Component {
         this.gatherKnowtes();
     }
 
+  
+
     render() {
         return (
             <div className="allKnowteDiv">
                 {this.props.isLoggedIn ?
-                    <CreateKnowte callback={this.gatherNewKnowtes} />
+                    <CreateKnowte callback={this.gatherNewKnowtes} id={this.props.id} />
                     : ""
                 }
                 <br></br>
-                {
-                    this.state.knowtes.map((knowte, index) =>
-                        <DisplayKnowtes key={index} user={knowte.fromUserId.username} title={knowte.title} subject={knowte.subject} body={knowte.body}
-                            createdAt={knowte.createdAt} />
-                    )
-                }
-                <br></br>
+                        <DisplayKnowtes knowtes={this.state.knowtes} isLoggedIn={this.props.isLoggedIn} id={this.props.id} />
             </div>
         )
     }
 }
 
-CreateKnowte.propTypes = {
+Home.propTypes = {
+    displayKnowtesStateCallback: PropTypes.func,
     callback: PropTypes.func,
 }

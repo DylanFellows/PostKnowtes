@@ -1,31 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Button } from 'reactstrap';
-import PropTypes from 'prop-types';
 
-export default class Login extends Component {
+export default class SignUp extends Component {
 
     state = {
         username: '',
         password: '',
-        isLoggedIn: '',
         error: '',
-        id: '',
-        currentUser: ''
+        msg: ''
     };
 
-    passIsLoggedInState = (aPropValue) => {
-        this.props.passIsLoggedInStateCallback(aPropValue);
-    }
-    
-    passIdState = (aPropValue) => {
-        this.props.passIdStateCallback(aPropValue);
-    }
-
-    passCurrentUserState = (aPropValue) => {
-        this.props.passCurrentUserStateCallback(aPropValue);
-    }
-    
 
     handleUserChange = (evt) => {
         this.setState({
@@ -39,8 +24,7 @@ export default class Login extends Component {
         })
     }
 
-
-    handleLogin = (evt) => {
+    handleSignup = (evt) => {
         this.clearMsgState();
         evt.preventDefault();
         if (!this.state.username) {
@@ -50,23 +34,17 @@ export default class Login extends Component {
         if (!this.state.password) {
             return this.setState({ error: ' Password is required' });
         }
-        this.getUser();
+        this.createUser();
         return this.setState({ error: '' });
     }
 
-    getUser = () => {
-        axios.get(`http://localhost:3001/api/Login/${this.state.username}/${this.state.password}`)
+    createUser = () => {
+        axios.post(`http://localhost:3001/api/SignUp/${this.state.username}/${this.state.password}`)
             .then((result) => {
-                this.setState({
-                    isLoggedIn: result.data.isLoggedIn,
-                    currentUser: result.data.currentUser,
-                    id: result.data.id
-                })
-                this.passIsLoggedInState(this.state.isLoggedIn);
-                this.passCurrentUserState(this.state.currentUser);
-                this.passIdState(this.state.id);
-                if (!result.data.isLoggedIn) {
-                    this.setState({ error: "Invalid Username/Password!" });
+                if (result.data.success) {
+                    this.setState({ msg: "Sign up successful, welcome!" })
+                } else {
+                    this.setState({ error: 'User already exists' })
                 }
             })
     }
@@ -86,7 +64,7 @@ export default class Login extends Component {
                     <br></br>
                     <input className="pword form-control text-center" maxLength="20" type="password" name="password" autoComplete="off" onChange={this.handlePassChange} placeholder="Password" />
                     <br></br>
-                    <Button onClick={this.handleLogin} type='submit' color="primary">Login</Button>
+                    <Button onClick={this.handleSignup} type='submit' color="primary">Sign up</Button>
 
                     {
                         this.state.error ?
@@ -96,15 +74,17 @@ export default class Login extends Component {
                             </h6>
                             : ""
                     }
+
+                    {this.state.msg ?
+                        <h6 className="msg" onClick={this.clearMsgState}>
+                            <button className="closeBtn" onClick={this.clearMsgState}><label className="closeBtnLbl">✖</label></button>
+                            {this.state.msg}
+                        </h6>
+                        : ""
+                    }
                 </form>
             </div>
         )
     }
 
-}
-
-Login.propTypes = {
-    passIsLoggedInStateCallback: PropTypes.func,
-    passIdStateCallback: PropTypes.func,
-    passCurrentUserStateCallback: PropTypes.func,
 }

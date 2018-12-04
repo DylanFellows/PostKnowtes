@@ -13,8 +13,10 @@ export default class CreateKnowte extends Component {
             subject: '',
             body: '',
             knowtes: [],
-            error: ''
-        };
+            error: '',
+            currentUser: '',
+            id: ''
+        };  
     }
 
     passKnowtesState = (aPropValue) => {
@@ -47,7 +49,7 @@ export default class CreateKnowte extends Component {
     }
 
     createKnowte = () => {
-        axios.post(`http://localhost:3001/api/knowtes/${this.state.title}/${this.state.subject}/${this.state.body}/5bf44aca53a030c85cd24898`)
+        axios.post(`http://localhost:3001/api/knowtes/${this.state.title}/${this.state.subject}/${this.state.body}/${this.props.id}`)
         .then((result) => {
             this.setState({ knowteCreated: result.data.success });
             this.setState({ isNewKnowte: false});

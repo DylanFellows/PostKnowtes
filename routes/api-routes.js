@@ -17,12 +17,13 @@ module.exports = function (app) {
   });
   
   app.get('/api/comments', function (req, res) {
-    db.Comments.find({}, 'body fromUserId toKnowtesId').populate("fromUserId").populate("toKnowtesId")
+    db.Comments.find({}, 'body createdAt fromUserId toKnowtesId').populate("fromUserId").populate("toKnowtesId")
       .then(function (comments, err) {
         if(!err && comments.length > 0){
           console.log(comments);
           res.json(comments);
         } else {
+          console.log(err);
           console.log("No Comments Found");
           res.json({});
         }
@@ -70,8 +71,8 @@ module.exports = function (app) {
       });
   });
 
-  app.post('/api/comments/:body/:fromUserId/:toUserId', function (req, res) {
-    db.Knowtes.create({ body: req.params.body, fromUserId: req.params.fromUserId })
+  app.post('/api/comments/:body/:fromUserId/:toKnowtesId', function (req, res) {
+    db.Comments.create({ body: req.params.body, fromUserId: req.params.fromUserId, toKnowtesId: req.params.toKnowtesId })
       .then(function (data) {
         res.json(data);
       })
@@ -80,6 +81,34 @@ module.exports = function (app) {
       });
   });
 
+  app.put('/api/editKnowte/:id/:title/:subject/:body', function(req, res) {
+    db.Knowtes.update({ _id: req.params.id}, { $set: { "title": req.params.title, "subject": req.params.subject, "body": req.params.body } }, {upsert:true})
+    .then(function (data){
+      res.json(data);
+    })
+    .catch(function(err){
+      res.json(err);
+    })
+  })
+
+  
+
+  
+  app.put('/api/editComment/:id/:body', function(req, res) {
+    console.log(req.params.id);
+     console.log(req.params.body);
+     db.Comments.update({_id: req.params.id }, { $set: { "body": req.params.body } })
+     .then(function (data){
+       console.log(data);
+       res.json(data);  
+     })
+     .catch(function(err){
+       console.log(err);
+       res.json(err);
+     })
+   })
+
+
   app.delete("/api/deleteKnowtes/:id", function (req, res) {
     db.Knowtes.findByIdAndRemove({_id: req.params.id})
       .then(function (response){
@@ -87,7 +116,7 @@ module.exports = function (app) {
           res.json({ success: true });
         } else {
           res.json({ success: false });
-        }findByIdAndRemove
+        }
       })
       .catch(function (error){
         console.log(error);

@@ -1,22 +1,43 @@
 body{
-    background-color: orange;
+    background: url('../images/background.jpg');
+    background-repeat: vertical;
+    background-size: 100% 100% contain;
+}
+
+hr {
+    border: 5px solid white;
+}
+
+p {
+    color: white;
+    margin-top: -5%;
+}
+
+.allKnowteDiv {
+    margin-top: 7%;
 }
 
 .icon{
-    width: 150%;
-    margin-right: 95%;
+    width: 3%;
+    margin-top: 5.5%;
+    float: left;
+}
+
+.navHeader {
+    margin-top: 5.5%;
+    margin-right: 81%;
+    font-size: 2em;
+    color: white;
 }
 
 .login{
-    margin-top: -5%;
+    margin-top: -9.6%;
     margin-left: 85%;
-    border: 1px solid blue;
 }
 
 .signUp{
-    margin-top: .5%;
+    margin-top: -6%;
     margin-left: 70%;
-    border: 1px solid red;
 }
 
 .uname{
@@ -58,6 +79,19 @@ body{
     background-color: red;
 }
 
+.commentsDiv {
+    text-align: justify;
+    border: 2px solid white;
+    color: white;
+    padding: 2%;
+    border-radius: 6px 6px 6px 6px;
+    margin-left: 5px;
+}
+
+.editBtn {
+    color: yellow;
+    position: static;
+}
 
 @media screen and (max-width: 1024px) {
     .signUp{
@@ -87,6 +121,10 @@ body{
 .topnav {
     background-color: #333;
     overflow: hidden;
+    margin-top: -11.5%;
+    width: 100%;
+    height: 20%;
+    position: fixed;
 }
 
 /* Style the links inside the navigation bar */
@@ -94,7 +132,6 @@ body{
     float: left;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
 }

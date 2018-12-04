@@ -2,6 +2,7 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import Login from '../smart/Login.jsx';
 import PropTypes from 'prop-types';
+import SignUpModal from './SignUpModal.js';
 
 
 export default class LoginModal extends React.Component {
@@ -16,23 +17,27 @@ export default class LoginModal extends React.Component {
     };
   }
 
-  passLoggedInState = (aPropValue) => {
-    this.props.callback(aPropValue);
+  passIsLoggedInState = (aPropValue) => {
+    console.log(this.state.isLoggedIn);
+    this.props.passIsLoggedInStateCallback(aPropValue);
   }
-
+  
+  
   passIdState = (aPropValue) => {
-    this.props.callback(aPropValue)
+    this.props.passIdStateCallback(aPropValue);
   }
+  
 
   passCurrentUserState = (aPropValue) => {
-    this.props.callback(aPropValue)
+    console.log(this.state.currentUser);
+    this.props.passCurrentUserStateCallback(aPropValue);
   }
 
-  getLoggedInState = (params) => {
+  getIsLoggedInState = (params) => {
     this.setState({
       isLoggedIn: params
     })
-    this.passLoggedInState(params);
+    this.passIsLoggedInState(this.state.isLoggedIn);
     if (params) {
       this.closeModal();
     } else {
@@ -40,28 +45,33 @@ export default class LoginModal extends React.Component {
     }
   }
 
+
   getIdState = (params) => {
     this.setState({
       id: params
     })
-    this.passIdState(params);
+    this.passIdState(this.state.id);
     if (params) {
       this.closeModal();
     } else {
       this.setState({ error: "No Id Was Found!" })
     }
+
   }
+  
 
   getCurrentUserState = (params) => {
     this.setState({
       currentUser: params
     })
-    this.passCurrentUserState(params);
+    this.passCurrentUserState(this.state.currentUser);
+    
     if (params) {
       this.closeModal();
     } else {
       this.setState({ error: "No Current User Present!" })
     }
+    
   }
 
   openModal = () => {
@@ -75,15 +85,13 @@ export default class LoginModal extends React.Component {
 
   closeModal = () => {
     this.setState({ modalIsOpen: false });
-    console.log(this.state.id);
-    console.log(this.state.currentUser);
   }
 
   render() {
     return (
       <div>
-        <button className='login btn btn-outline-light' onClick={this.openModal}>Login</button>
-
+        <SignUpModal/>
+        <button className='login btn btn-outline-light' onClick={this.openModal}>Login</button>,
         <ReactModal
           className="Modal"
           isOpen={this.state.modalIsOpen}
@@ -94,15 +102,16 @@ export default class LoginModal extends React.Component {
 
           <label className="xBtn" onClick={this.closeModal}>✖</label>
           <h2 ref={subtitle => this.subtitle = subtitle}>Login</h2>
-          <Login callback={this.getLoggedInState && this.getIdState && this.getCurrentUserState} />
+          <Login passIsLoggedInStateCallback={this.getIsLoggedInState} passIdStateCallback={this.getIdState} passCurrentUserStateCallback={this.getCurrentUserState} />
         </ReactModal>
-
       </div>
     );
   }
 }
 
 LoginModal.propTypes = {
-  callback: PropTypes.func
+  passIsLoggedInStateCallback: PropTypes.func,
+  passIdStateCallback: PropTypes.func,
+  passCurrentUserStateCallback: PropTypes.func,
 }
 

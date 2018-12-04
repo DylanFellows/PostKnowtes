@@ -18,22 +18,33 @@ export default class App extends Component {
     };
   }
 
-  passLoggedInState = (aPropValue) => {
-    this.props.callback(aPropValue);
-  }
-
-  getLoggedInState = (params) => {
+  getIsLoggedInState = (params) => {
     this.setState({
       isLoggedIn: params
     })
+    //alert('Logged in state from nav.js in app.js' + this.state.isLoggedIn);
+  }
+
+  getIdState = (params) => {
+    this.setState({
+      id: params
+    })
+    alert('State of id in app.js from nav.js' + this.state.id);
+  }
+
+  getCurrentUserState = (params) => {
+    this.setState({
+      currentUser: params
+    })
+    //alert('Current user state from nav.js in app' + this.state.currentUser);
   }
 
   render() {
-    return (  
+    return (
       <BrowserRouter>
         <div className="App">
-          <Nav callback={this.getLoggedInState} />
-          <Home isLoggedIn={this.state.isLoggedIn} />
+          <Nav passIdStateCallback={this.getIdState} passIsLoggedInStateCallback={this.getIsLoggedInState} passCurrentUserStateCallback={this.getCurrentUserState} />
+          <Home isLoggedIn={this.state.isLoggedIn} currentUser={this.state.currentUser} id={this.state.id} />
         </div>
       </BrowserRouter>
     );
@@ -41,6 +52,8 @@ export default class App extends Component {
 }
 
 App.propTypes = {
-  callback: PropTypes.func
+  passIsLoggedInStateCallback: PropTypes.func,
+  passIdStateCallback: PropTypes.func,
+  passCurrentUserStateCallback: PropTypes.func
 }
 
