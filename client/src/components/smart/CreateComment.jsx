@@ -76,7 +76,7 @@ export default class CreateComment extends Component {
                     <div className="newCommentDiv">
                         <br></br>
 
-                        <textarea rows="3" cols="80" name="comment" onChange={this.handleBodyChange} placeholder="Please Enter a Comment Here."></textarea>
+                        <textarea rows="3" cols="90" name="comment" onChange={this.handleBodyChange} placeholder="Please Enter a Comment Here."></textarea>
 
                         {this.state.error ?
                         <div>
